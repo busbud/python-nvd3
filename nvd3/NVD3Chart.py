@@ -159,20 +159,9 @@ class NVD3Chart(object):
         self.containerheader = u''
         # CDN http://cdnjs.com/libraries/nvd3/ needs to make sure it's up to
         # date
-        self.header_css = [
-            '<link href="%s" rel="stylesheet" />' % h for h in
-            (
-                'https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.1/nv.d3.min.css' if self.remote_js_assets else self.assets_directory + 'nvd3/src/nv.d3.css',
-            )
-        ]
+        self.header_css = []
 
-        self.header_js = [
-            '<script src="%s"></script>' % h for h in
-            (
-                'https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js' if self.remote_js_assets else self.assets_directory + 'd3/d3.min.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.1/nv.d3.min.js' if self.remote_js_assets else self.assets_directory + 'nvd3/nv.d3.min.js'
-            )
-        ]
+        self.header_js = []
 
         #: Javascript code as string
         self.jschart = None
@@ -383,13 +372,6 @@ class NVD3Chart(object):
     def buildhtmlheader(self):
         """generate HTML header content"""
         self.htmlheader = ''
-        # If the JavaScript assets have already been injected, don't bother re-sourcing them.
-        global _js_initialized
-        if '_js_initialized' not in globals() or not _js_initialized:
-            for css in self.header_css:
-                self.htmlheader += css
-            for js in self.header_js:
-                self.htmlheader += js
 
     def buildcontainer(self):
         """generate HTML div"""

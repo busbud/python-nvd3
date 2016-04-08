@@ -20,12 +20,6 @@ if _ip and _ip.__module__.lower().startswith('ipy'):
         '''Function to return the HTML code for the div container plus the javascript
         to generate the chart.  This function is bound to the ipython formatter so that
         charts are displayed inline.'''
-        global _js_initialized
-        if not _js_initialized:
-            print('js not initialized - pausing to allow time for it to load...')
-            initialize_javascript()
-            import time
-            time.sleep(5)
         chart.buildhtml()
         return chart.htmlcontent
 
@@ -39,7 +33,7 @@ if _ip and _ip.__module__.lower().startswith('ipy'):
             for chart_type in nvd3_all:
                 html_formatter.for_type_by_name('nvd3.' + chart_type, chart_type, _print_html)
 
-    def initialize_javascript(d3_js_url='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js',
+    def initialize_javascript(d3_js_url='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js',
                               nvd3_js_url='https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.1/nv.d3.min.js',
                               nvd3_css_url='https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.7.1/nv.d3.min.css',
                               use_remote=False):
